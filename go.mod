@@ -1,0 +1,7 @@
+module github.com/meskuk/broadc2
+
+go 1.25.9
+
+require golang.org/x/net v0.55.0
+
+require golang.org/x/sys v0.45.0 // indirect
