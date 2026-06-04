@@ -2,3 +2,4 @@
 *.pub
 bcagent
 bcctl
+agent/fs

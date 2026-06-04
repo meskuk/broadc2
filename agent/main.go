@@ -7,32 +7,29 @@ import (
 	"os"
 	"encoding/base64"
 	"crypto/ed25519"
+
+	 _ "embed"
 )
+
+//go:embed fs/master.pub
+var masterKeyB64 string
+//go:embed fs/node.key
+var nodeKeyB64 string
 
 func main() {
 	var masterKey ed25519.PublicKey
-	mKeyRaw, err := os.ReadFile("master.pub")
-	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
-	}
-	masterKey, err = base64.StdEncoding.DecodeString(string(mKeyRaw))
+	masterKey, err := base64.StdEncoding.DecodeString(masterKeyB64)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)
 	}
 
-	nKeyRaw, err := os.ReadFile("node.key")
+	nodeKeyBytes, err := base64.StdEncoding.DecodeString(nodeKeyB64)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)
 	}
-	nKeyBytes, err := base64.StdEncoding.DecodeString(string(nKeyRaw))
-	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
-	}
-	nodeKey := ed25519.NewKeyFromSeed(nKeyBytes)
+	nodeKey := ed25519.NewKeyFromSeed(nodeKeyBytes)
 
 	s := internal.Server{
 		NodeKey: nodeKey,
