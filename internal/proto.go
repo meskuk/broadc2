@@ -15,8 +15,6 @@ type Message struct {
 	Content []byte // Content
 }
 
-type VerificationError error
-
 // Unmarshal from raw bytes into struct fields
 func (m *Message) Unmarshal(data []byte, key ed25519.PublicKey) (error) {
 	// TODO. FIXME: !!!: THISSUCKS: This looks complicated and will violently explode

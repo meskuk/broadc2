@@ -50,7 +50,7 @@ func main() {
 		// Decode it and get the key
 		seed, err := base64.StdEncoding.DecodeString(string(seedBytes))
 		masterKey := ed25519.NewKeyFromSeed(seed)
-		// Send t
+		// Send it
 		send([]byte(*sendContent), masterKey)
 	} else if *generateFlag {
 		fmt.Println("Generating master key")

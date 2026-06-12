@@ -32,7 +32,6 @@ func (s *Server) Listen(ch chan Message) (error) {
 	packetconn := ipv4.NewPacketConn(c)
 	s.packetconn = packetconn
 
-	// TODO: I should read in a way that grows the slice
 	buf := make([]byte, 1024)
 	for {
 		_, _, src, err := packetconn.ReadFrom(buf)
