@@ -64,6 +64,36 @@ Message: hello
 
 You're done!
 
+## Testing out locally
+
+Steps are mainly for me, using `podman`:
+
+First use the build instructions with `CGO_ENABLED` set to 0, unless you're using an image
+with glibc (I use Alpine).
+
+Then for the agent container:
+
+```sh
+podman run --rm -it \
+	--network podman \
+	-v ./bcagent:/bin/bcagent:ro,Z \
+	--rm alpine \
+	/bin/bcagent
+```
+
+And send from a master container:
+
+```sh
+podman run --rm -it \
+	--network podman \
+	-v ./master.key:/master.key:ro,Z \
+	-v ./bcctl:/bin/bcctl:ro,Z \
+	--rm alpine \
+	/bin/bcctl -send hi
+```
+
+You should see messages show up!
+
 ## To-do
 
 - Letting nodes respond to commands
