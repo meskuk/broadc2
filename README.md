@@ -59,7 +59,7 @@ Sent 68
 ```
 Started listener
 Reading packet from 127.0.0.1:48809
-Message: hello
+Message: hi
 ```
 
 You're done!
