@@ -1,15 +1,16 @@
 package internal
 
 import (
+	"crypto/ed25519"
 	"fmt"
 	"net"
-	"crypto/ed25519"
+
 	"golang.org/x/net/ipv4"
 )
 
 type Server struct {
-	NodeKey ed25519.PrivateKey
-	MasterKey ed25519.PublicKey
+	NodeKey    ed25519.PrivateKey
+	MasterKey  ed25519.PublicKey
 	packetconn *ipv4.PacketConn
 }
 
@@ -18,12 +19,12 @@ func (s *Server) Send(msg Message) {
 	s.packetconn.WriteTo(
 		data,
 		nil,
-		&net.UDPAddr{IP: net.IPv4(255,255,255,255), Port: 22222},
+		&net.UDPAddr{IP: net.IPv4(255, 255, 255, 255), Port: 5090},
 	)
 }
 
-func (s *Server) Listen(ch chan Message) (error) {
-	c, err := net.ListenPacket("udp4", "0.0.0.0:22222")
+func (s *Server) Listen(ch chan Message) error {
+	c, err := net.ListenPacket("udp4", "0.0.0.0:5090")
 	if err != nil {
 		return err
 	}
@@ -46,7 +47,7 @@ func (s *Server) Listen(ch chan Message) (error) {
 		if err != nil {
 			fmt.Println("Error unmarshalling packet:", err.Error())
 		}
-		ch<-msg
-		
+		ch <- msg
+
 	}
 }

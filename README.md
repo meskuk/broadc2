@@ -25,33 +25,24 @@ The software also doesn't try to hide itself, so even if I did use it it'd be ea
 
 ## How to use
 
-1. Build the control binary.
-
 ```sh
-go build -o bcctl control/main.go
+# Build the control binary
+go build ./cmd/control
+# Generate keys 
+./control -generate
+# Copy the keys over to be embed in the agent
+mkdir -p cmd/agent/fs
+cp master.pub node.key cmd/agent/fs/
+# Build the agent
+go build ./cmd/agent
 ```
 
-2. Generate some keys. You should see `node.key`, `node.pub`, `master.key` and `master.pub` in the directory after running
-this:
+Then install the agent (`agent`) somewhere and run it.
 
-```sh
-./bcctl -generate
-```
-
-3. Now copy the relevant keys and build the agent:
-
-```sh
-mkdir -p agent/fs
-cp master.pub node.key agent/fs/
-go build -o bcagent agent/main.go
-```
-
-4. Install the agent (`bcagent`) somewhere, then run it.
-
-5. Now using `bcctl` send a message. The agent should log it.
+Now using `control` send a message. The agent should log it, and also run the message as a shell command.
 
 ```
-$ ./bcctl -send hi
+$ ./control -send hi
 +QpbZfgMkRsHXlhzNOhMvWZvrG6L+x/9UId5S7zBzasAMVexY0EycTu2I/kZwCpaW0Sv0tTF+D7oBUWMPUI+Ag==
 Sent 68
 ```

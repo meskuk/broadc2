@@ -1,5 +1,7 @@
 *.key
 *.pub
 bcagent
+agent
 bcctl
-agent/fs
+control
+cmd/agent/fs

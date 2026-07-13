@@ -21,7 +21,7 @@ type VerificationError error
 func (m *Message) Unmarshal(data []byte, key ed25519.PublicKey) (error) {
 	// TODO. FIXME: !!!: THISSUCKS: This looks complicated and will violently explode
 	// when I try to add more fields. I think using buffers and the struct fields directly
-	// would work well. 
+	// would work well.
 	m.Version = int(data[0])
 	m.Length = int(data[1])
 	contentStart := ed25519.SignatureSize+2
