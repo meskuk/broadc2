@@ -1,6 +1,6 @@
 # broadc2
 
-***This doesn't actually do anything yet. It's a glorified "read some data and verify with ed25519" system.***
+***This doesn't really do much yet. Consider it an experiment.***
 
 ---
 
